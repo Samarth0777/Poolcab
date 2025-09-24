@@ -1,0 +1,206 @@
+/* ========== History Container ========== */
+.light-history-content {
+    position: relative;
+    width: 95%;
+    min-width: 500px;
+    max-width: 1000px;
+    margin: 70px auto 0 auto;
+    background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 10px;
+    font-weight: 100;
+    text-align: start;
+    border-radius: 10px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.light-history-content:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.light-history-content h1 {
+    font-weight: 200;
+}
+
+.light-history-content h2 {
+    font-weight: 300;
+    font-size: 20px;
+    margin: 2%;
+    border-bottom: 1px solid black;
+}
+
+.light-history-content h2:last-of-type {
+    margin-top: 0;
+}
+
+.light-history-content h3 {
+    font-weight: 300;
+    font-size: 15px;
+}
+
+.light-history-content p {
+    font-weight: 300;
+    font-size: 14px;
+}
+
+/* ========== Horizontal Scrollable Lists ========== */
+.light-booked-list,
+.light-posted-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 20px;
+    padding: 10px 10px;
+    height: 220px;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    flex: 0 0 auto;
+}
+
+/* ========== Cards ========== */
+.booked-item,
+.light-posted-item {
+    min-width: 160px;
+    max-width: 200px;
+    flex: 0 0 auto;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(0px);
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #222;
+}
+
+.booked-item:hover,
+.light-posted-item:hover {
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.booked-item p,
+.booked-item h3 {
+    margin: 0.5em 0;
+}
+
+/* ========== Modal & Overlay ========== */
+.post-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(0px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.booked-ride-overlay {
+    backdrop-filter: blur(5px);
+}
+
+.booked-ride-overlay h2 {
+    font-weight: 350;
+    font-size: 16px;
+    margin: 0;
+    text-align: start;
+    border-bottom: none;
+}
+
+.booked-ride-overlay p {
+    font-weight: 350;
+    font-size: 15px;
+    text-align: start;
+}
+
+.post-modal {
+    background: rgba(196, 195, 195, 0.163);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    color: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: popupScale 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-origin: center;
+}
+
+@keyframes popupScale {
+    0% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    80% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* ========== Mobile Responsive Styles ========== */
+@media (max-width: 768px) {
+
+    .light-history-content {
+        justify-content: center;
+        /* margin: auto; */
+        min-width: 300px;
+        max-width: 300px;
+        /* width: 50%; */
+        padding: 15px;
+        margin-top: 30px;
+        margin-bottom: 10px;
+    }
+
+    .light-history-content h2 {
+        font-size: 18px;
+    }
+
+    .light-history-content h3 {
+        font-size: 14px;
+    }
+
+    .light-history-content p {
+        font-size: 13px;
+    }
+
+    .booked-item,
+    .light-posted-item {
+        min-width: 140px;
+        max-width: 1440px;
+        padding: 8px;
+    }
+
+    .post-modal {
+        width: 50%;
+        margin: auto;
+        padding: 15px;
+    }
+}

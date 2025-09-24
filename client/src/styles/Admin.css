@@ -1,0 +1,225 @@
+.light-admin-content{
+    margin-top: 70px;
+    background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+    border-radius: 10px;
+    
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+ul{
+    padding: 0;
+}
+
+.light-admin-content h1{
+    padding-top: 10px;
+    /* text-decoration: underline; */
+    border-bottom: 1px solid rgb(0, 0, 0);
+    width: 13%;
+    margin: auto
+}
+
+.light-admin-content:hover{
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.light-user-list{
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    height: 70vh;
+    width: 800px;
+    margin: auto;
+    padding: 10px;
+}
+
+.light-user-list ul{
+    /* background-color: green; */
+    width: 80%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    /* justify-content:start; */
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.light-user-list ul li{
+    background-color: rgb(255, 255, 255);
+    width: 90%;
+    margin: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* background-color: yellow; */
+    padding: 0px 5px;
+    transition-duration: 300ms;
+}
+
+.light-user-list ul li:hover{
+    cursor: pointer;
+    box-shadow: 1px 2px 10px 0px rgb(208, 207, 207);
+}
+
+.left-side{
+    /* background-color: green; */
+    padding: 0px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+}
+
+.left-side p{
+    font-weight: 300;
+    display: flex;
+}
+
+.left-side p:first-child{
+    padding: 5px 5px 0px 5px;
+    font-weight: 600;
+    margin: auto;
+}
+
+.left-side p:last-child{
+    margin: 0;
+    padding: 0px 5px 5px 5px;
+}
+
+.right-side{
+    /* background-color: red; */
+    padding: 0px 5px;
+    display: flex;
+    vertical-align: middle;
+    justify-content: center;
+}
+
+.right-side p{
+    /* background-color: white; */
+    display: flex;
+    align-items: center;
+    color: rgb(78, 78, 255);
+    font-weight: 350;
+}
+
+.close-btn:hover{
+    color: white;
+}
+
+.booked_posted-wrapper{
+    /* background-color: red; */
+    z-index: 1000;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+}
+
+.booked_posted-overlay ul{
+    /* background-color: red; */
+    margin: 10px auto;
+}
+
+.booked_posted-overlay ul li{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    /* background-color: green; */
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.booked_posted-overlay ul li p{
+    margin: 5px;
+}
+
+.booked_posted-overlay{
+    background-color: rgb(175, 175, 175,0.3);
+    position: relative;
+    border:1px solid rgb(209, 209, 209);
+    border-radius: 10px;
+    top: 15%;
+    width: 50%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: none;
+    animation: popupScale 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (max-width:768px) {
+    .light-admin-content{
+        width: 500px;
+        margin: 70px 10px 0px 10px;
+        font-size: 15px;
+    }
+    .light-admin-content h1{
+        font-size: 25px;
+        width: 20%;
+    }
+    .light-user-list{
+        width: auto;
+    }
+    .post-modal-overlay{
+        width: 100%;
+    }
+    .post-modal{
+        width: 80%;
+    }
+    .post-modal p{
+        font-size: 14px;
+    }
+    .post-modal h2{
+        font-size: 14px;
+    }
+    .post-modal button{
+        font-size: 14px;
+    }
+    .booked_posted-overlay{
+        width: 90%;
+    }
+    .booked_posted-wrapper{
+        height: 100vh;
+    }
+}
+
+@media (max-width:400px) {
+    .light-admin-content{
+        width: 300px;
+        margin: 70px 10px 0px 10px;
+        font-size: 10px;
+    }
+    .light-admin-content h1{
+        font-size: 20px;
+        width: 35%;
+    }
+    .light-user-list ul li{
+        width: 160px;
+    }
+    .light-user-list{
+        width: auto;
+    }
+    .post-modal{
+        width: 70%;
+    }
+    .post-modal p{
+        font-size: 13px;
+    }
+    .post-modal h2{
+        font-size: 13px;
+    }
+    .post-modal button{
+        font-size: 13px;
+    }
+    .booked_posted-overlay{
+        width: 80%;
+    }
+    .booked_posted-overlay ul li{
+        /* background-color: red; */
+        width: 85%;
+    }
+}

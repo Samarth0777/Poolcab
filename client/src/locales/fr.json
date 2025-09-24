@@ -1,0 +1,12 @@
+{
+  "post_title": "Publiez votre voyage",
+  "firstName": "Prénom",
+  "lastName": "Nom de famille",
+  "contact": "Contact",
+  "select-veh": "Sélectionnez un véhicule",
+  "from": "De",
+  "to": "À",
+  "seats": "Places disponibles",
+  "date-time": "Date et heure",
+  "post-journey-btn": "Publier le trajet"
+}

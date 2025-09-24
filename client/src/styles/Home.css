@@ -1,0 +1,248 @@
+.light-home-content{
+    margin-top: 15%;
+    /* background-color: red; */
+}/* Assume your header is 70px tall */
+
+
+/* Main content below header */
+.light-home-content {
+  position: relative;
+  top: 70px; /* Push content below fixed header */
+  width: 80vw;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: calc(100vh - 70px); /* Fill remaining space below header */
+  display: flex;
+  flex-direction: column;
+  /* background: linear-gradient(135deg, #e0e0e0, #f5f5f5); */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.light-home-title {
+  position: sticky;
+  top: 0;
+  margin-top: 0;
+  background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+    /* background: linear-gradient(135deg, #f0f0f0, #dcdcdc); */
+  text-align: center;
+  padding: 20px;
+  font-size: 2.0rem;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  font-weight: 200;
+  color: #000;
+  z-index: 10;
+  /* border-radius: 15px; */
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.light-post-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 30px 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  scrollbar-width: none;
+}
+
+.light-post-item {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: 
+    transform 0.3s ease, 
+    box-shadow 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+  /* cursor: pointer; */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #222; /* default text color */
+}
+
+.light-post-item:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  background-color: #000;
+  color: #fff; /* change text to white */
+  .book-now{display: block;
+    }
+  cursor: pointer;
+}
+
+.light-post-item:hover h2,
+.light-post-item:hover p {
+  color: #fff; /* ensure child elements also turn white */
+}
+
+
+.light-post-item h2 {
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  color: #222;
+}
+
+.light-post-item p {
+  margin: 6px 0;
+  color: #555;
+  font-size: 1rem;
+}
+
+.book-now{
+    /* display: none; */
+    border-radius:10px ;
+    height: 30px;
+    padding: 5px;
+    border: none;
+    font-size: 14px;
+    background-color: #000;
+    color: white;
+    margin: 1%;
+    width: 50%;
+    align-self: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.book-now:hover{
+    background-color: rgb(18, 188, 18);
+    color: rgb(255, 255, 255);
+}
+
+
+@media (max-width: 1024px) {
+  .light-post-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .search-bars{
+    margin: 13px auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .light-post-list {
+    grid-template-columns: 1fr;
+  }
+  .search-bars{
+    margin: 13px auto;
+  }
+}
+
+
+/* Modal Overlay */
+.post-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(0px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* Modal Content */
+.post-modal {
+  background: rgba(106, 106, 106, 0.163); /* semi-transparent */
+  backdrop-filter: blur(3px); /* glassy effect */
+  padding: 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  color: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* subtle border for contrast */
+}
+
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 18px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Blur background */
+.blurred {
+  filter: blur(3px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.light-err-login{
+  margin-top: 100%;
+}
+.light-err-login p{
+  font-size: 20px;
+  font-weight: 350;
+  border-bottom: 1px solid rgb(175, 175, 175);
+  width: 100%;
+  margin: auto;
+}
+.light-err-login button{
+  margin-top: 5%;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+.search-bars{
+  /* background-color: red; */
+  display: flex;
+  width: 40%;
+  flex-direction: row;
+  /* background-color: rgb(245, 8, 8); */
+  margin: 3px auto ;
+  height: 40px;
+  padding: 2px;
+  justify-content: space-between;
+
+}
+.search-bar{
+  border-radius: 10px;
+  width: 40%;
+  border: none;
+  background-color: rgba(125, 125, 125, 0.5);
+  padding: 2px 10px;
+  outline: none;
+}
+
+.admin-edit-btn{
+  position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 100;
+    transition: background 0.3s ease;
+}
+
+.admin-edit-btn:hover{
+  background: white;
+  color: black;
+}
