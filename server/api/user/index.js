@@ -4,9 +4,10 @@ const Post=require("../../models/post")
 const authMiddleware = require("../../middleware/authmiddleware")
 const adminMiddleware=require("../../middleware/adminMiddleware")
 const router=express.Router()
+const bcrypt=require('bcrypt')
 
 router.post("/register",async(req,res)=>{
-    const {firstName,lastName,email,password,username}=req.body
+    let {firstName,lastName,email,password,username}=req.body
     if(!firstName || !lastName || !email || !password || !username){
         return res.status(400).json({error:"Please fill all fields"})
     }
@@ -15,11 +16,12 @@ router.post("/register",async(req,res)=>{
     if(await User.findOne({email}))
         return res.status(400).json({error:"Email already exists"})
     try {
+        let hashed_pass=await bcrypt.hash(password,10)
         const created_user=await User.create({
             firstName,
             lastName,
             email,
-            password,
+            password: hashed_pass,
             username
         })
         return res.status(201).json({success:true,message:"User registered successfully",user:created_user})
@@ -34,11 +36,13 @@ router.post("/login",async(req,res)=>{
     if(!username || !password){
         return res.status(400).json({error:"Please fill all fields"})
     }
+    let hashed_pass;
     try {
         const user=await User.findOne({username})
         if(!user)
             return res.status(404).json({error:"User not found"})
-        if(password!==user.password)
+        const matched=await bcrypt.compare(password,user.password)
+        if(!matched)
             return res.status(401).json({error:"Invalid credentials"})
         return res.status(200).json({success:true,message:"User logged in successfully",user,token:await user.generateToken()})
     } catch (err) {  

@@ -46,7 +46,7 @@ const Post = () => {
     }
 
     useEffect(() => {
-        console.log("redux_user in post:", redux_user)
+        // console.log("redux_user in post:", redux_user)
         _chkAuth()
     }, [])
 

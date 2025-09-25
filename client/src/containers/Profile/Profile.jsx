@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
     const navigate=useNavigate()
+    const [auth,setAuth]=useState(false)
     const redux_user = useSelector((state) => state.user.user);
     const dispatch=useDispatch();
     const [editMode, setEditMode] = useState(false);
@@ -21,6 +22,7 @@ const Profile = () => {
         username: redux_user.username || "guest",
         vehicle: redux_user.avlVehicle || []
     });
+
 
     //logout function....
     const handle_logout=()=>{
@@ -82,9 +84,22 @@ const Profile = () => {
         setUser((prev) => ({ ...prev, [field]: value }));
     };
 
-    // useEffect(()=>{
-    //     console.log(redux_user)
-    // })
+    const _chkAuth = async () => {
+        const res = await axios.get("http://localhost:200/api/poolcab/v1/user/checkauth",
+            {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                }
+            }
+        )
+        if (res.status === 200)
+            setAuth(true)
+
+    }
+
+    useEffect(()=>{
+        _chkAuth()
+    })
     const handleAddVehicle = () => {
         if (newVehicle.trim()) {
             handleChange("vehicle", [...user.vehicle, newVehicle.trim()]);
@@ -98,7 +113,10 @@ const Profile = () => {
     };
 
     return (<>
-        <div className="profile-blur-container">
+        {!auth ? <div className="light-err-login">
+            <p>Login/Signup to See Profile...</p>
+            <button onClick={() => { navigate('/login') }}>Login</button>
+        </div>:<div className="profile-blur-container">
             <button className="logout-btn" onClick={handle_logout}>Logout</button>
             <h1 className="profile-title">Profile - <b><i>{user.firstName}</i></b></h1>
             {editMode ? <button className="save-button" onClick={updateProfile}>Save</button > : <button className="edit-button" onClick={() => setEditMode((prev) => !prev)}>Edit Profile</button>}
@@ -237,7 +255,7 @@ const Profile = () => {
                     )}
                 </div>
             </div>
-        </div>
+        </div>}
         {redux_user.isBlocked&&<div className="user-blocked-wrapper">
             <div className="user-blocked-overlay">
                 <h1>Your Profile is Temporarily Blocked!</h1>

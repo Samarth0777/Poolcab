@@ -35,9 +35,11 @@ const Signup = () => {
                }
             }
          );
+         // console.log(res)
 
-         if (res.statusText === "OK") {
+         if (res.status === 201) {
             console.log("User registered successfully", res.data);
+            toast.success("User Registered Successfully")
             navigate("/login"); // Optional redirect
          }
       } catch (err) {

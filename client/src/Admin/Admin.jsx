@@ -3,8 +3,11 @@ import '../styles/Admin.css'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 const Admin = () => {
+    const navigate=useNavigate()
     const [users, setUsers] = useState([])
+    const [auth,setAuth]=useState(false)
     const [selecteduser, setSelectedUser] = useState(null)
     const [booked, setBooked] = useState(null)
     const [posted, setPosted] = useState(null)
@@ -129,11 +132,28 @@ const Admin = () => {
         }
     }
 
+    const _chkAuth = async () => {
+        const res = await axios.get("http://localhost:200/api/poolcab/v1/user/checkauth",
+            {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                }
+            }
+        )
+        if (res.status === 200)
+            setAuth(true)
+
+    }
+
     useEffect(() => {
         getAllUsers()
+        _chkAuth()
     }, [])
     return <>
-        <div className="light-admin-content">
+        {!auth ? <div className="light-err-login">
+            <p>Login/Signup to Access Admin Panel...</p>
+            <button onClick={() => { navigate('/login') }}>Login</button>
+        </div>:<div className="light-admin-content">
             <h1>Admin</h1>
             <div className="light-user-list">
                 <ul>
@@ -211,7 +231,7 @@ const Admin = () => {
                     </div>
                 </div>}
             </div>
-        </div>
+        </div>}
         {redux_user.isBlocked&&<div className="user-blocked-wrapper">
             <div className="user-blocked-overlay">
                 <h1>Your Profile is Temporarily Blocked!</h1>

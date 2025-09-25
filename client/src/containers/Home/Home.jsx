@@ -172,7 +172,8 @@ const Home = () => {
         //comment below func to view all posts including past date posts
         _filter_relatablePosts()
         _chkAuth()
-        console.log(redux_user.isAdmin)
+        console.log("is Admin :",redux_user.isAdmin)
+        console.log("is Blocked :",redux_user.isBlocked)
     }, []);
 
     const handleCloseModal = () => {

@@ -48,7 +48,7 @@ const Login = () => {
          }
       )
       if (res.status === 200) {
-         console.log("Fetched booked rides:", res.data);
+         // console.log("Fetched booked rides:", res.data);
          dispatch(getbookedrides(res.data.bookedRides));
       }
    }
@@ -63,7 +63,7 @@ const Login = () => {
          }
       )
       if (res.status === 200) {
-         console.log("Fetched posted rides:", res.data);
+         // console.log("Fetched posted rides:", res.data);
          dispatch(getpostedrides(res.data.postedRides));
       }
    }
@@ -96,7 +96,7 @@ const Login = () => {
          if (res.statusText === "OK") {
             console.log("User logged in successfully", res.data)
             dispatch(setuser(res.data.user))
-            console.log("redux_user", redux_user)
+            // console.log("redux_user", redux_user)
             localStorage.setItem("username", res.data.user.username)
             localStorage.setItem("token", res.data.token)
             _fch_Posts()
