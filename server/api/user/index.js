@@ -3,8 +3,11 @@ const User = require("../../models/user")
 const Post=require("../../models/post")
 const authMiddleware = require("../../middleware/authmiddleware")
 const adminMiddleware=require("../../middleware/adminMiddleware")
+const cors=require('cors')
 const router=express.Router()
 const bcrypt=require('bcrypt')
+const nodemailer=require('nodemailer')
+
 
 router.post("/register",async(req,res)=>{
     let {firstName,lastName,email,password,username}=req.body
@@ -27,6 +30,35 @@ router.post("/register",async(req,res)=>{
         return res.status(201).json({success:true,message:"User registered successfully",user:created_user})
     } catch (error) {
         console.error("Error in registration:", error)
+        return res.status(500).json({error:"Internal server error"})
+    }
+})
+
+router.post("/getotp",async(req,res)=>{
+    const {username,otp}=req.body;
+    // console.log(req.body)
+    if(!username)
+        return res.status(404).json({error:"Please provide username"})
+    const user=await User.findOne({username})
+
+    const transporter=nodemailer.createTransport({
+        service:'gmail',
+        auth:{
+            user:'samarthsaxena0777@gmail.com',
+            pass:'uehr dgse bizu fube'
+        }
+    })
+    try {
+        await transporter.sendMail({
+            from: '"POOLCAB samarthsaxena0777@gmail.com',
+            to:user.email,
+            subject:"Login OTP",
+            text:`Your one time password for Poolcab is ${otp}`
+        })
+        return res.status(200).json({msg:"Email Sent"})
+        
+    } catch (err) {
+        console.error("Error Sending Mail:", err)
         return res.status(500).json({error:"Internal server error"})
     }
 })
