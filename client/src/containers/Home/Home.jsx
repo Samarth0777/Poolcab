@@ -65,6 +65,22 @@ const Home = () => {
 
     }
 
+    //confirmation sent over email
+    const send_conf_mail=async(post,bseats)=>{
+        try {
+            const res=await axios.post("http://localhost:200/api/poolcab/v1/user/sendconfmail",{
+                username:localStorage.getItem("username"),
+                post:post,
+                bookedSeats:bseats
+            })
+            if(res.status===200){
+                console.log("booking confirmation sent")
+            }
+        } catch (error) {
+            
+        }
+    }
+
     //book ride function........
     const handle_book = async (x) => {
         // console.log(x, bookedSeats)
@@ -90,6 +106,7 @@ const Home = () => {
                 _fch_Posts()
                 _fchbooked_Rides()
                 toast.success("Ride booked successfully")
+                send_conf_mail(res.data.post,bookedSeats)
             }
         } catch (error) {
             if (error.status === 406) {

@@ -199,7 +199,7 @@ const Admin = () => {
                         <p>{selecteduser.isAdmin}</p>
                         <p onClick={() => set_Post(true)}>Booked Rides ➡️</p>
                         <p onClick={() => set_Book(true)}>Posted Rides ➡️</p>
-                        {selecteduser.isBlocked?<button onClick={()=>{handle_unblock(selecteduser)}}>Unblock</button>:<button onClick={()=>{handle_blacklist(selecteduser)}}>Blacklist</button>}
+                        {selecteduser.isBlocked?<button onClick={()=>{handle_unblock(selecteduser)}}>Unblock</button>:<button disabled={localStorage.getItem("username")===selecteduser.username} onClick={()=>{handle_blacklist(selecteduser)}}>Blacklist</button>}
                     </div>
                 </div>}
                 {post_div && <div className="booked_posted-wrapper">

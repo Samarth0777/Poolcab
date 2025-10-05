@@ -7,10 +7,10 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-    const navigate=useNavigate()
-    const [auth,setAuth]=useState(false)
+    const navigate = useNavigate()
+    const [auth, setAuth] = useState(false)
     const redux_user = useSelector((state) => state.user.user);
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
     const [newVehicle, setNewVehicle] = useState("");
     const [user, setUser] = useState({
@@ -25,7 +25,7 @@ const Profile = () => {
 
 
     //logout function....
-    const handle_logout=()=>{
+    const handle_logout = () => {
         localStorage.removeItem("token")
         localStorage.removeItem("username")
         localStorage.removeItem("i18nextLng")
@@ -43,11 +43,11 @@ const Profile = () => {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
                 },
             })
-    
+
             if (res.status === 200) {
                 setEditMode((prev) => !prev)
                 console.log(res.data)
-                dispatch(setuser({...redux_user,['contact']:user.contact,['avlVehicle']:user.vehicle,['currentAdd']:user.currentAdd}) )
+                dispatch(setuser({ ...redux_user, ['contact']: user.contact, ['avlVehicle']: user.vehicle, ['currentAdd']: user.currentAdd }))
                 toast.success("Profile updated successfully")
             }
         } catch (error) {
@@ -97,7 +97,7 @@ const Profile = () => {
 
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         _chkAuth()
     })
     const handleAddVehicle = () => {
@@ -116,7 +116,7 @@ const Profile = () => {
         {!auth ? <div className="light-err-login">
             <p>Login/Signup to See Profile...</p>
             <button onClick={() => { navigate('/login') }}>Login</button>
-        </div>:<div className="profile-blur-container">
+        </div> : <div className="profile-blur-container">
             <button className="logout-btn" onClick={handle_logout}>Logout</button>
             <h1 className="profile-title">Profile - <b><i>{user.firstName}</i></b></h1>
             {editMode ? <button className="save-button" onClick={updateProfile}>Save</button > : <button className="edit-button" onClick={() => setEditMode((prev) => !prev)}>Edit Profile</button>}
@@ -256,13 +256,13 @@ const Profile = () => {
                 </div>
             </div>
         </div>}
-        {redux_user.isBlocked&&<div className="user-blocked-wrapper">
+        {redux_user.isBlocked && <div className="user-blocked-wrapper">
             <div className="user-blocked-overlay">
                 <h1>Your Profile is Temporarily Blocked!</h1>
             </div>
         </div>}
-        </>
-        
+    </>
+
     );
 };
 

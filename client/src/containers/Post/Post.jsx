@@ -119,6 +119,22 @@ const Post = () => {
         }
     }
 
+    //confirmation sent over email
+
+    const send_conf_mail=async(post)=>{
+        try {
+            const res=await axios.post("http://localhost:200/api/poolcab/v1/post/sendconfmail",{
+                username:localStorage.getItem("username"),
+                post:post
+            })
+            if(res.status===200)
+                console.log("Confirmation Email Sent!")
+        } catch (error) {
+            console.error("Error Sending Mail:", error);
+            toast.error("Error Sending Mail");
+        }
+    }
+
     //post ride function........
     const handle_submit = async (e) => {
         e.preventDefault();
@@ -141,6 +157,7 @@ const Post = () => {
                 _fch_Posts()
                 _fchposted_Rides()
                 toast.success("Post created successfully");
+                send_conf_mail(res.data.post)
             }
         } catch (error) {
             console.error("Error creating post:", error);

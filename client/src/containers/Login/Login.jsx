@@ -136,11 +136,13 @@ const Login = () => {
             username: user.username,
             otp: x
          })
-         if (res.status == 200)
+         if (res.status == 200){
             console.log(res)
+            toast.success("OTP Sent")
+         }
       } catch (err) {
          console.log(err)
-         // toast.error(err.response.data.error)
+         toast.error(err.response.data.error)
       }
    }
 
