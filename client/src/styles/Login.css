@@ -114,6 +114,18 @@
    text-decoration: underline;
 }
 
+.google-login{
+   width: 10%;
+   margin: auto;
+   transition: 200ms;
+}
+.google-login:hover{
+   cursor: pointer;
+   /* transform:translateX(5px); */
+   transform: translateY(-3px);
+   transition: 200ms;
+}
+
 /* Responsive layout for small screens */
 @media (max-width: 480px) {
    .form {

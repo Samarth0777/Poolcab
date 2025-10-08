@@ -146,6 +146,17 @@ const Login = () => {
       }
    }
 
+   const handle_google_login=async()=>{
+      // const res=await axios.get("http://localhost:200/api/poolcab/v1/user/googlelogin",{
+      //    headers:{
+      //       "Content-Type":"application/json"
+      //    }
+      // })
+      window.location.href="http://localhost:200/api/poolcab/v1/user/googlelogin"
+      console.log(document.cookie)
+      // localStorage.setItem('token',document.cookie.split('=')[1])
+   }
+
    return <>
       <div className="login-wrapper">
          <h1 className="login-title">Login</h1>
@@ -165,6 +176,8 @@ const Login = () => {
             <div className="submit">
                <button onClick={handle_login}>Login</button>
             </div>
+            <div>or login with</div>
+         <img className='google-login' src='google.png' onClick={handle_google_login}/>
             <div className="signup-link">
                Create Account? <a href="/signup">Sign Up</a>
             </div>

@@ -1,6 +1,8 @@
 const express=require('express');
 const app=express();
 
+const cookieParser=require('cookie-parser')
+
 const cors=require('cors')
 
 const port=process.env.PORT
@@ -8,6 +10,8 @@ const connectDB=require('./db/index')
 
 const coreRouter=require('./api/index')
 const BASE_URL=process.env.BASE_API_URL
+
+app.use(cookieParser())
 
 app.use(express.json());
 connectDB()

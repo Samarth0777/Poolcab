@@ -6,8 +6,9 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { getallrides, getpostedrides } from '../../store/userSlice';
+import { getallrides, getbookedrides, getpostedrides, setuser } from '../../store/userSlice';
 import i18n from '../../i18n';
+import { useRef } from 'react';
 
 const Post = () => {
 
@@ -18,6 +19,7 @@ const Post = () => {
     const redux_lang = useSelector((state) => state.user.lang)
     const [_chkprofile, setCheckProfile] = useState(false)
     const dispatch = useDispatch()
+    const feched = useRef(false)
 
     //i18n initialization..........
     const { t: translate } = useTranslation()
@@ -45,9 +47,64 @@ const Post = () => {
         }
     }
 
+    //fetch booked rides............
+    const _fchbooked_Rides = async () => {
+        const res = await axios.post("http://localhost:200/api/poolcab/v1/user/getbookedrides",
+            { username: localStorage.getItem("username") },
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            }
+        )
+        if (res.status === 200) {
+            // console.log("Fetched booked rides:", res.data);
+            dispatch(getbookedrides(res.data.bookedRides));
+        }
+    }
+
+    const _fchUser = async (username) => {
+        const res = await axios.post('http://localhost:200/api/poolcab/v1/user/fchuser', {
+            username: username
+        },
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        )
+        // console.log(res)
+        dispatch(setuser(res.data.user))
+        _fch_Posts()
+        _fchbooked_Rides()
+        _fchposted_Rides()
+        if (res.data.user.firstName.length > 0 && res.data.user.lastName.length > 0 && res.data.user.contact.length > 0 && res.data.user.avlVehicle.length > 0) {
+            setCheckProfile(true)
+        }
+    }
+
     useEffect(() => {
         // console.log("redux_user in post:", redux_user)
+        if (localStorage.getItem('firstrun')) {
+            // console.log(feched.current)
+            _chkAuth()
+
+            return;
+        }
+        localStorage.setItem('firstrun',"true")
+        var cookies = document.cookie
+        const x = Object.fromEntries(
+            cookies.split('; ').map(pair => pair.split('='))
+        )
+        feched.current = true
+        const token = x.token
+        localStorage.setItem('token', token)
+        const username = x.username
+        _fchUser(username)
+        localStorage.setItem('username', username)
         _chkAuth()
+        console.log(typeof (feched.current))
+
     }, [])
 
     useEffect(() => {
@@ -121,13 +178,13 @@ const Post = () => {
 
     //confirmation sent over email
 
-    const send_conf_mail=async(post)=>{
+    const send_conf_mail = async (post) => {
         try {
-            const res=await axios.post("http://localhost:200/api/poolcab/v1/post/sendconfmail",{
-                username:localStorage.getItem("username"),
-                post:post
+            const res = await axios.post("http://localhost:200/api/poolcab/v1/post/sendconfmail", {
+                username: localStorage.getItem("username"),
+                post: post
             })
-            if(res.status===200)
+            if (res.status === 200)
                 console.log("Confirmation Email Sent!")
         } catch (error) {
             console.error("Error Sending Mail:", error);
@@ -230,7 +287,7 @@ const Post = () => {
                 <button onClick={() => navigate("/Profile")}>Profile</button>
             </div>
         </div>}
-        {redux_user.isBlocked&&<div className="user-blocked-wrapper">
+        {redux_user.isBlocked && <div className="user-blocked-wrapper">
             <div className="user-blocked-overlay">
                 <h1>Your Profile is Temporarily Blocked!</h1>
             </div>

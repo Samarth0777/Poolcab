@@ -29,6 +29,7 @@ const Profile = () => {
         localStorage.removeItem("token")
         localStorage.removeItem("username")
         localStorage.removeItem("i18nextLng")
+        localStorage.removeItem('firstrun')
         dispatch(setuser({}))
         toast.success("Logged out successfully")
         navigate('/login')
