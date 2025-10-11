@@ -11,6 +11,7 @@ import Profile from './containers/Profile/Profile'
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Admin from './Admin/Admin'
+import Test from './containers/Test/Test'
 
 function App() {
   const router = createBrowserRouter([
@@ -45,6 +46,10 @@ function App() {
         {
           path:'/admin',
           element:<Admin/>
+        },
+        {
+          path:'/test',
+          element:<Test/>
         }
       ]
     }

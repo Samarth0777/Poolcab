@@ -2,8 +2,9 @@
 .light-history-content {
     position: relative;
     width: 95%;
-    min-width: 500px;
-    max-width: 1000px;
+    /* margin: auto; */
+    /* min-width: 500px;
+    max-width: 1000px; */
     margin: 70px auto 0 auto;
     background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -54,7 +55,7 @@
     overflow-y: hidden;
     gap: 20px;
     padding: 10px 10px;
-    height: 220px;
+    height: 200px;
     scrollbar-width: none;
     scroll-behavior: smooth;
     flex: 0 0 auto;

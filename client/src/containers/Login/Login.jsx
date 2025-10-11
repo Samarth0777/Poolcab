@@ -82,7 +82,7 @@ const Login = () => {
       })
    }
    const handle_login = async (e) => {
-      if (otp != user.otp){
+      if (otp != user.otp || !otp){
          // console.log(otp,user.otp)
          toast.error("Incorrect OTP!")
       }

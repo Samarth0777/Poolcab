@@ -31,19 +31,26 @@ const Post = () => {
 
     //check auth..............
     const _chkAuth = async () => {
-        const res = await axios.get("http://localhost:200/api/poolcab/v1/user/checkauth",
-            {
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+        try {
+            const res = await axios.get("http://localhost:200/api/poolcab/v1/user/checkauth",
+                {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`
+                    }
                 }
+            )
+            if (res.status === 200)
+                setAuth(true)
+            
+            //////////////////To check Profile Completion//////////////////
+            if (redux_user.firstName.length > 0 && redux_user.lastName.length > 0 && redux_user.contact.length > 0 && redux_user.avlVehicle.length > 0) {
+                setCheckProfile(true)
             }
-        )
-        if (res.status === 200)
-            setAuth(true)
-
-        //////////////////To check Profile Completion//////////////////
-        if (redux_user.firstName.length > 0 && redux_user.lastName.length > 0 && redux_user.contact.length > 0 && redux_user.avlVehicle.length > 0) {
-            setCheckProfile(true)
+            
+        } catch (error) {
+            if(error.status===401){
+                localStorage.removeItem('firstrun')
+            }
         }
     }
 

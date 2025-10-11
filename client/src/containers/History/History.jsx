@@ -17,15 +17,19 @@ const History = () => {
     //check auth....
 
     const _chkAuth = async () => {
-        const res = await axios.get("http://localhost:200/api/poolcab/v1/user/checkauth",
-            {
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+        try {
+            const res = await axios.get("http://localhost:200/api/poolcab/v1/user/checkauth",
+                {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`
+                    }
                 }
-            }
-        )
-        if (res.status === 200)
-            setAuth(true)
+            )
+            if (res.status === 200)
+                setAuth(true)
+        } catch (error) {
+            localStorage.removeItem('firstrun')
+        }
     }
 
     // const _fchbooked_Rides = async () => {

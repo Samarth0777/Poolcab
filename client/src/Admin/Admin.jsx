@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import Maps from '../containers/Maps/Maps'
 const Admin = () => {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [users, setUsers] = useState([])
-    const [auth,setAuth]=useState(false)
+    const [auth, setAuth] = useState(false)
     const [selecteduser, setSelectedUser] = useState(null)
     const [booked, setBooked] = useState(null)
     const [posted, setPosted] = useState(null)
@@ -91,19 +92,19 @@ const Admin = () => {
     const handle_blacklist = async (user) => {
         try {
             const res = await axios.post("http://localhost:200/api/poolcab/v1/user/adminblockuser", {
-                    _id:user._id,
-                    isAdmin:redux_user.isAdmin
-                },
+                _id: user._id,
+                isAdmin: redux_user.isAdmin
+            },
                 {
-                    headers:{
-                        "Content-Type":"application/json",
-                        "Authorization":`Bearer ${localStorage.getItem("token")}`
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`
                     }
                 }
             )
             console.log(res)
-            if(res.status===200){
-                setSelectedUser(prev=>({...prev,isBlocked:true}))
+            if (res.status === 200) {
+                setSelectedUser(prev => ({ ...prev, isBlocked: true }))
                 await getAllUsers()
                 toast.success("User Blocked Successfully!")
             }
@@ -112,36 +113,40 @@ const Admin = () => {
         }
     }
 
-    const handle_unblock=async(user)=>{
+    const handle_unblock = async (user) => {
         const res = await axios.post("http://localhost:200/api/poolcab/v1/user/adminunblockuser", {
-                _id:user._id,
-                isAdmin:redux_user.isAdmin
-            },
+            _id: user._id,
+            isAdmin: redux_user.isAdmin
+        },
             {
-                headers:{
-                    "Content-Type":"application/json",
-                    "Authorization":`Bearer ${localStorage.getItem("token")}`
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
                 }
             }
         )
         console.log(res)
-        if(res.status===200){
-            setSelectedUser(prev=>({...prev,isBlocked:false}))
+        if (res.status === 200) {
+            setSelectedUser(prev => ({ ...prev, isBlocked: false }))
             await getAllUsers()
             toast.success("User Unblocked Successfully!")
         }
     }
 
     const _chkAuth = async () => {
-        const res = await axios.get("http://localhost:200/api/poolcab/v1/user/checkauth",
-            {
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+        try {
+            const res = await axios.get("http://localhost:200/api/poolcab/v1/user/checkauth",
+                {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`
+                    }
                 }
-            }
-        )
-        if (res.status === 200)
-            setAuth(true)
+            )
+            if (res.status === 200)
+                setAuth(true)
+        } catch (error) {
+            localStorage.removeItem('firstrun')
+        }
 
     }
 
@@ -153,15 +158,15 @@ const Admin = () => {
         {!auth ? <div className="light-err-login">
             <p>Login/Signup to Access Admin Panel...</p>
             <button onClick={() => { navigate('/login') }}>Login</button>
-        </div>:<div className="light-admin-content">
+        </div> : <div className="light-admin-content">
             <h1>Admin</h1>
             <div className="light-user-list">
                 <ul>
                     {users.map(user => (
                         <li onClick={() => handle_list_click(user)} key={user._id}>
                             <div className='left-side'>
-                                {user.isAdmin?<p>{user.firstName} {user.lastName}(Admin)</p>:<p>{user.firstName} {user.lastName}</p>}
-                                
+                                {user.isAdmin ? <p>{user.firstName} {user.lastName}(Admin)</p> : <p>{user.firstName} {user.lastName}</p>}
+
                                 <p><i>{user.username}</i></p>
                             </div>
                             <div className='right-side'>
@@ -199,7 +204,7 @@ const Admin = () => {
                         <p>{selecteduser.isAdmin}</p>
                         <p onClick={() => set_Post(true)}>Booked Rides ➡️</p>
                         <p onClick={() => set_Book(true)}>Posted Rides ➡️</p>
-                        {selecteduser.isBlocked?<button onClick={()=>{handle_unblock(selecteduser)}}>Unblock</button>:<button disabled={localStorage.getItem("username")===selecteduser.username} onClick={()=>{handle_blacklist(selecteduser)}}>Blacklist</button>}
+                        {selecteduser.isBlocked ? <button onClick={() => { handle_unblock(selecteduser) }}>Unblock</button> : <button disabled={localStorage.getItem("username") === selecteduser.username} onClick={() => { handle_blacklist(selecteduser) }}>Blacklist</button>}
                     </div>
                 </div>}
                 {post_div && <div className="booked_posted-wrapper">
@@ -232,11 +237,12 @@ const Admin = () => {
                 </div>}
             </div>
         </div>}
-        {redux_user.isBlocked&&<div className="user-blocked-wrapper">
+        {redux_user.isBlocked && <div className="user-blocked-wrapper">
             <div className="user-blocked-overlay">
                 <h1>Your Profile is Temporarily Blocked!</h1>
             </div>
         </div>}
+        {/* <Maps/>/ */}
     </>
 }
 
